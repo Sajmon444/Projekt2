@@ -45,20 +45,27 @@ function rysuj_wrogow(){
 */
 
 //rysowanie wrogow
+function rysowanie_wrogow(){
 for (var i = 4; i < 11; i++) {  //dodajemy 1 linmijke wrogow
     tab[i].classList.add('wrog')
 }
 
 
-for (var i = 19; i < 26; i++) {  //dodajemy 2 linmijke wrogow
+/*for (var i = 19; i < 26; i++) {  //dodajemy 2 linmijke wrogow
     tab[i].classList.add('wrog')
 }
 
 
 for (var i = 34; i < 41; i++) {  //dodajemy 3 linmijke wrogow
     tab[i].classList.add('wrog')
+}*/
+
+
+
 }
 
+
+rysowanie_wrogow()
 //rysowanie gracz 
 var pozycja_gracz = 157  //pozycja gracz ana samym poczatku
 
@@ -98,13 +105,36 @@ function lewo(event) {
 
 //poruszanie sie wrogow PROSTE
 
-var wrogowie = document.querySelectorAll('.wrog');
+//var wrogowie = document.querySelectorAll('.wrog');
 
-function poruszajWrogami() {
+function przesun_wrogow() {
+    var wrogowie = document.querySelectorAll('.wrog');
     
-  }
-
+    for (var i = 0; i < wrogowie.length; i++) {
+      var wrog = wrogowie[i];
+      var indeks = tab.indexOf(wrog);
+      var nowy_indeks = indeks + 15;
+      console.log(nowy_indeks) // przesuwamy o jedną linię w dół, czyli o 16 indeksów
+      if (nowy_indeks < tab.length) {
+        var nowy_wrog = tab[nowy_indeks];
+        nowy_wrog.classList.add('wrog');
+        wrog.classList.remove('wrog');
+      }else if(pozycja_gracz==nowy_indeks){   //TRZEAB TO OGARNAC ZE JAK SIE STYKA Z GRACZEM TO CONSOLE.LOG
+        zatrzymajPowtarzanie()
+        console.log("przegrales")
+      }
+      else{
+        zatrzymajPowtarzanie()
+        console.log("przegrales")
+        
+      }
+    }
+    }
   
-  setInterval(poruszajWrogami, 1000);
+  //przesun_wrogow()
+  var powtarzanie = setInterval(przesun_wrogow, 1000); // przesuwaj wrogów co sekundę
 
+  function zatrzymajPowtarzanie() {
+    clearInterval(powtarzanie);
+  }
 
