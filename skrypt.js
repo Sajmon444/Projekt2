@@ -31,41 +31,16 @@ for (let i = 0; i < elementy.length; i++) {
     tab.push(elementy[i]);
 }
 
-//console.log(tab);
 
-//wyswietlanie wrogow
-/*
-var wrogowie = [4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
- 
-function rysuj_wrogow(){
-    for(let i=o;i<wrogowie.length;i++){
-        tab[wrogowie[i]].classList.add('invader')
-    }
-}
-*/
 
 //rysowanie wrogow
-function rysowanie_wrogow(){
-for (var i = 4; i < 11; i++) {  //dodajemy 1 linmijke wrogow
-    tab[i].classList.add('wrog')
-}
 
 
-/*for (var i = 19; i < 26; i++) {  //dodajemy 2 linmijke wrogow
-    tab[i].classList.add('wrog')
-}
-
-
-for (var i = 34; i < 41; i++) {  //dodajemy 3 linmijke wrogow
-    tab[i].classList.add('wrog')
-}*/
+var pozycja_wroga = Math.floor(Math.random() * 12) + 2;  //pozycja wroga ana samym poczatku
+tab[pozycja_wroga].classList.add('wrog')
 
 
 
-}
-
-
-rysowanie_wrogow()
 //rysowanie gracz 
 var pozycja_gracz = 157  //pozycja gracz ana samym poczatku
 
@@ -78,12 +53,12 @@ document.addEventListener("keydown", lewo)
 function prawo(event) {
 
     if (event.key === "d") {  //poruszanie sie w prawo
-        if( pozycja_gracz<=163){
-        tab[pozycja_gracz].classList.remove('gracz')
-        pozycja_gracz++
-        tab[pozycja_gracz].classList.add('gracz')
-        console.log("pozycja gracza to:" , pozycja_gracz)
-        }else{
+        if (pozycja_gracz <= 163) {
+            tab[pozycja_gracz].classList.remove('gracz')
+            pozycja_gracz++
+            tab[pozycja_gracz].classList.add('gracz')
+            console.log("pozycja gracza to:", pozycja_gracz)
+        } else {
             console.log("nie mozesz dalej isc")
         }
     }
@@ -91,12 +66,12 @@ function prawo(event) {
 
 function lewo(event) {
     if (event.key === "a") {  //poruszanie sie w prawo
-        if(pozycja_gracz>=151){
-        tab[pozycja_gracz].classList.remove('gracz')
-        pozycja_gracz--
-        tab[pozycja_gracz].classList.add('gracz')
-        console.log("pozycja gracza to:" , pozycja_gracz)
-        }else{
+        if (pozycja_gracz >= 151) {
+            tab[pozycja_gracz].classList.remove('gracz')
+            pozycja_gracz--
+            tab[pozycja_gracz].classList.add('gracz')
+            console.log("pozycja gracza to:", pozycja_gracz)
+        } else {
             console.log("nie mozesz dalej isc")
         }
     }
@@ -107,34 +82,21 @@ function lewo(event) {
 
 //var wrogowie = document.querySelectorAll('.wrog');
 
-function przesun_wrogow() {
-    var wrogowie = document.querySelectorAll('.wrog');
-    
-    for (var i = 0; i < wrogowie.length; i++) {
-      var wrog = wrogowie[i];
-      var indeks = tab.indexOf(wrog);
-      var nowy_indeks = indeks + 15;
-      console.log(nowy_indeks) // przesuwamy o jedną linię w dół, czyli o 16 indeksów
-      if (nowy_indeks < tab.length) {
-        var nowy_wrog = tab[nowy_indeks];
-        nowy_wrog.classList.add('wrog');
-        wrog.classList.remove('wrog');
-      }else if(pozycja_gracz==nowy_indeks){   //TRZEAB TO OGARNAC ZE JAK SIE STYKA Z GRACZEM TO CONSOLE.LOG
-        zatrzymajPowtarzanie()
-        console.log("przegrales")
-      }
-      else{
-        zatrzymajPowtarzanie()
-        console.log("przegrales")
-        
-      }
+function poruszanie_wroga() {
+    if (pozycja_wroga !== pozycja_gracz || (pozycja_wroga > 165 && pozycja_wroga < 179)) {   //nie dziala zatrzymanie sie wroga na samym koncu
+        tab[pozycja_wroga].classList.remove('wrog')
+        pozycja_wroga += 15
+        tab[pozycja_wroga].classList.add('wrog')
+        console.log("pozycja wroga to:", pozycja_wroga)
     }
+    else {
+        zatrzymajPowtarzanie()
+        alert("Przegrales")
     }
-  
-  //przesun_wrogow()
-  var powtarzanie = setInterval(przesun_wrogow, 1000); // przesuwaj wrogów co sekundę
+}
 
-  function zatrzymajPowtarzanie() {
+var powtarzanie = setInterval(poruszanie_wroga, 1000);
+
+function zatrzymajPowtarzanie() {
     clearInterval(powtarzanie);
-  }
-
+}
