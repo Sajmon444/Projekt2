@@ -83,20 +83,51 @@ function lewo(event) {
 //var wrogowie = document.querySelectorAll('.wrog');
 
 function poruszanie_wroga() {
-    if (pozycja_wroga !== pozycja_gracz || (pozycja_wroga > 165 && pozycja_wroga < 179)) {   //nie dziala zatrzymanie sie wroga na samym koncu
-        tab[pozycja_wroga].classList.remove('wrog')
+    if (pozycja_wroga == pozycja_gracz || pozycja_wroga > 165 ) {   //nie dziala zatrzymanie sie wroga na samym koncu
+        zatrzymajPowtarzanie()
+        alert("Przegrales")
+    }
+    else {
+       tab[pozycja_wroga].classList.remove('wrog')
         pozycja_wroga += 15
         tab[pozycja_wroga].classList.add('wrog')
         console.log("pozycja wroga to:", pozycja_wroga)
     }
-    else {
-        zatrzymajPowtarzanie()
-        alert("Przegrales")
-    }
 }
 
-var powtarzanie = setInterval(poruszanie_wroga, 1000);
+
+//var powtarzanie = setInterval(poruszanie_wroga, 1000);
 
 function zatrzymajPowtarzanie() {
     clearInterval(powtarzanie);
 }
+
+
+
+//strzelanie pociskiem tylko pojawianie sie pocisku na f  i poruszanie pocisku
+
+document.addEventListener("keydown", pocisk)
+var pozycja_pocisku
+
+
+function poruszanie_pocisku(){
+    tab[pozycja_pocisku].classList.remove('pocisk')
+    pozycja_pocisku -= 15
+    tab[pozycja_pocisku].classList.add('pocisk')
+    console.log("pozycja pocisku to:", pozycja_pocisku)
+}
+
+
+function pocisk(event) {
+
+    if (event.key === "f") {  //poruszanie sie w prawo
+         pozycja_pocisku=pozycja_gracz-15
+        tab[pozycja_pocisku].classList.add('pocisk')
+        poruszanie_pocisku()
+    }
+}
+
+
+
+
+var powtarzanie_pocisku = setInterval(poruszanie_pocisku, 500);
