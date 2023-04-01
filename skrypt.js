@@ -1,5 +1,7 @@
 var mapa = document.getElementById("mapa_div");
 var info = document.getElementById("info");
+var punkty = 0;
+info.innerHTML=punkty;
 
 var tab = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,  // od 0 do 179 ideksy
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -83,51 +85,108 @@ function lewo(event) {
 //var wrogowie = document.querySelectorAll('.wrog');
 
 function poruszanie_wroga() {
-    if (pozycja_wroga == pozycja_gracz || pozycja_wroga > 165 ) {   //nie dziala zatrzymanie sie wroga na samym koncu
-        zatrzymajPowtarzanie()
+    if (pozycja_wroga == pozycja_gracz || pozycja_wroga > 165) {   //nie dziala zatrzymanie sie wroga na samym koncu
+        clearInterval(powtarzanie_wroga);
+        tab[pozycja_wroga].classList.remove('wrog')
         alert("Przegrales")
+
     }
     else {
-       tab[pozycja_wroga].classList.remove('wrog')
+        tab[pozycja_wroga].classList.remove('wrog')
         pozycja_wroga += 15
-        tab[pozycja_wroga].classList.add('wrog')
         console.log("pozycja wroga to:", pozycja_wroga)
+        tab[pozycja_wroga].classList.add('wrog')
+
     }
 }
 
 
-//var powtarzanie = setInterval(poruszanie_wroga, 1000);
+var powtarzanie_wroga = setInterval(poruszanie_wroga, 1000);
 
-function zatrzymajPowtarzanie() {
-    clearInterval(powtarzanie);
-}
+
+
 
 
 
 //strzelanie pociskiem tylko pojawianie sie pocisku na f  i poruszanie pocisku
+/*
+-klimamy f
+-generuje sie nam pocisk 
+petla{
+-usuwamy pocisk
+-zmiejszamy jego index
+-znow generujemy pocisk
+}
+*/
 
-document.addEventListener("keydown", pocisk)
 var pozycja_pocisku
 
 
-function poruszanie_pocisku(){
-    tab[pozycja_pocisku].classList.remove('pocisk')
-    pozycja_pocisku -= 15
-    tab[pozycja_pocisku].classList.add('pocisk')
-    console.log("pozycja pocisku to:", pozycja_pocisku)
-}
+let isBulletOnScreen = false; // flaga, która określa, czy pocisk jest aktualnie wyświetlany
 
+document.addEventListener("keydown", pocisk);
 
 function pocisk(event) {
+    if (event.key === "f" && !isBulletOnScreen) { 
+        isBulletOnScreen = true; 
+        pozycja_pocisku = pozycja_gracz - 15;
+        console.log("pocisk pojawia sie: ", pozycja_pocisku);
+        tab[pozycja_pocisku].classList.add("pocisk");
 
-    if (event.key === "f") {  //poruszanie sie w prawo
-         pozycja_pocisku=pozycja_gracz-15
-        tab[pozycja_pocisku].classList.add('pocisk')
-        poruszanie_pocisku()
+        let intervalId = setInterval(function () {
+            if (pozycja_pocisku > 15) {
+                // Sprawdzanie kolizji pomiędzy pociskiem a wrogiem
+                if (pozycja_pocisku === pozycja_wroga) {
+                    console.log("Trafiony");
+                    clearInterval(intervalId);
+                    tab[pozycja_pocisku].classList.remove("pocisk");
+
+                    clearInterval(powtarzanie_wroga);
+                    tab[pozycja_wroga].classList.remove('wrog')
+
+                    isBulletOnScreen = false;
+                    // Dodawanie punktu
+                    dodajPunkt();
+                } else {
+                    tab[pozycja_pocisku].classList.remove("pocisk");
+                    pozycja_pocisku -= 15;
+                    console.log("pozycja pocisku: ", pozycja_pocisku);
+                    tab[pozycja_pocisku].classList.add("pocisk");
+                }
+            } else {
+                console.log("pocisk nie moze isc dalej");
+                clearInterval(intervalId);
+                tab[pozycja_pocisku].classList.remove("pocisk");
+                isBulletOnScreen = false;
+            }
+        }, 100);
     }
 }
 
+//dodawanie punktu za potkanie pocisku z worgiem
+function dodajPunkt() {
+    punkty++;
+    info.innerHTML=punkty;
+}
+
+
+//pojawianie sie wroga po tym jak 1 raz pocisk spotkal sie z wrogiem
+
+function generuj_wroga() {
+  tab[pozycja_wroga].classList.add('wrog');
+  powtarzanie_wroga = setInterval(poruszanie_wroga, 1000)
+  poruszanie_wroga()
+}
+
+function sprawdz_wroga() {
+  if (!tab[pozycja_wroga].classList.contains('wrog')) { // sprawdzenie, czy wrog jest na ekranie
+    pozycja_wroga = Math.floor(Math.random() * 12) + 2;; // jeśli nie, wylosowanie nowej pozycji wroga
+    generuj_wroga(); // i wygenerowanie go na nowej pozycji
+  }
+}
+
+setInterval(sprawdz_wroga, 100); // sprawdzanie, czy wrog jest na ekranie co 500ms
 
 
 
-var powtarzanie_pocisku = setInterval(poruszanie_pocisku, 500);
+
