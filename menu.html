@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <title>menu</title>
+    <style>
+        #start {
+            background-color: lightblue;
+            width: 400px;
+            height: 100px;
+
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 130px;
+
+
+        }
+
+        #opcje {
+            background-color: lightgoldenrodyellow;
+            width: 400px;
+            height: 100px;
+
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+        }
+
+        #opcje_2 {
+            background-color: lightcoral;
+            width: 400px;
+            height: 200px;
+
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        #exit {
+            background-color: gray;
+            width: 400px;
+            height: 100px;
+
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+        }
+
+        .przycisk {
+            appearance: none;
+
+            border: 2px solid #1A1A1A;
+            border-radius: 15px;
+
+            color: #FFFFFF;
+
+
+            font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 16px;
+            font-weight: 600;
+            line-height: normal;
+            margin: 0;
+            min-height: 60px;
+            min-width: 0;
+            
+            padding: 16px 24px;
+            text-align: center;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="start" class="przycisk"></div>
+    <div id="opcje" class="przycisk"></div>
+    <div id="opcje_2" class="przycisk"></div>
+    <div id="exit" class="przycisk"></div>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#start").click(function () {
+                window.location.href = "index.html";
+            });
+
+
+            $('#opcje_2').hide()
+            $('#opcje').click(function () {
+                $('#opcje_2').slideToggle()
+            })
+
+
+            $("#exit").click(function () {
+                window.location.href = "https://www.google.com";
+            });
+
+            $(".przycisk").mouseenter(function () {
+                $(this).css({
+                    "box-shadow": "rgba(0, 0, 0, 0.25) 0 8px 15px",
+                    
+                });
+            }).mouseleave(function () {
+                $(this).css({
+                    "box-shadow": "none",
+                    
+                });
+            });
+
+
+
+        }); 
+    </script>
+</body>
+
+</html>
