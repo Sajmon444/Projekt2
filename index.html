@@ -1,61 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
+
 <head>
     <title>Projekt</title>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <style>
-        #mapa_div{
+        #mapa_div {
+            background-color: rgb(26, 24, 24);
             margin-left: auto;
             margin-right: auto;
-            margin-top: 200px;
+            margin-top: 45px;
             border: solid black 1px;
-            width: 300px;
-            height: 300px;
+            width: 600px;
+            height: 600px;
             display: flex;
             flex-wrap: wrap;
         }
 
-        .siatka{
-            width: 20px;
-            height: 20px;
-           /* border: solid black 1px;*/
-         
+        .siatka {
+            width: 40px;
+            height: 40px;
+            /* border: solid black 1px;*/
+
         }
 
-        .wrog{
+        .wrog {
             background-color: purple;
-            border-radius: 10px;
+
 
 
         }
 
-        .gracz{
+        .gracz {
             background-color: green;
-            width: 20px;
-            height: 20px;
+            width: 40px;
+            height: 40px;
 
         }
 
         #mapa_div {
-        letter-spacing: 10px;
-    }
-
-        .pocisk{
-            background-color: red;
-            width: 20px;
-            height: 20px;
-            border-radius: 10px;
+            letter-spacing: 20px;
         }
-   
+
+        .pocisk {
+            background-color: yellow;
+            width: 40px;
+            height: 40px;
+            border-radius: 30px;
+        }
+
+        .pocisk_wroga {
+            background-color: red;
+            width: 40px;
+            height: 40px;
+            border-radius: 30px;
+        }
+
+
+        /* Wszystko po za grą */
+        body {
+            background-color: #d8d7c3;
+        }
+
+
+        #info_podpis {
+
+            width: 350px;
+            height: 100px;
+
+            position: absolute;
+            top: 0px;
+            left: 30px;
+
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 45px;
+        }
+
+        #info {
+            font-size: 45px;
+            width: 100px;
+            height: 100px;
+
+            position: absolute;
+            top: 50px;
+            left: 150px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+
+        #w {
+            width: 60px;
+            height: 60px;
+            border: solid black 1px;
+            padding-left: 5px;
+            font-size: 30px;
+
+            position: absolute;
+            bottom: 180px;
+            left: 660px;
+        }
+
+        #a {
+            width: 60px;
+            height: 60px;
+            border: solid black 1px;
+            padding-left: 5px;
+            font-size: 30px;
+
+            position: absolute;
+            bottom: 115px;
+            left: 595px;
+        }
+
+        #s {
+            width: 60px;
+            height: 60px;
+            border: solid black 1px;
+            padding-left: 5px;
+            font-size: 30px;
+
+            position: absolute;
+            bottom: 115px;
+            left: 670px;
+        }
+
+        #d {
+            width: 60px;
+            height: 60px;
+            border: solid black 1px;
+            padding-left: 5px;
+            font-size: 30px;
+
+            position: absolute;
+            bottom: 115px;
+            left: 740px;
+            
+        }
+
+
+
+        #i {
+            width: 60px;
+            height: 60px;
+            border: solid black 1px;
+            padding-left: 5px;
+            font-size: 30px;
+
+            position: absolute;
+            bottom: 180px;
+            left: 1100px;
+        }
+
+        #j {
+            width: 60px;
+            height: 60px;
+            border: solid black 1px;
+            padding-left: 5px;
+            font-size: 30px;
+
+            position: absolute;
+            bottom: 115px;
+            left: 1030px;
+        }
+
+        #k {
+            width: 60px;
+            height: 60px;
+            border: solid black 1px;
+            padding-left: 5px;
+            font-size: 30px;
+
+            position: absolute;
+            bottom: 115px;
+            left: 1105px;
+        }
+
+        #l {
+            width: 60px;
+            height: 60px;
+            border: solid black 1px;
+            padding-left: 5px;
+            font-size: 30px;
+
+            position: absolute;
+            bottom: 115px;
+            left: 1178px;
+            
+        }
     </style>
 
 
 </head>
+
 <body>
     <div id="mapa_div"> </div>
+    <div id="info_podpis"> Zdobyte Punkty:</div>
     <div id="info"></div>
 
+    <div id="w">W</div>
+    <div id="a">A</div>
+    <div id="s">S</div>
+    <div id="d">D</div>
+
+    <div id="i">I</div>
+    <div id="j">J</div>
+    <div id="k">K</div>
+    <div id="l">L</div>
+
     <script src="skrypt.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $(document).keydown(function (event) {
+                if (event.key === "w") { 
+                    $("#w").css("background-color", "green");
+                }
+            }).keyup(function (event) {
+                if (event.key === "w") { 
+                    $("#w").css("background-color", "");
+                }
+            });
+
+            $(document).keydown(function (event) {
+                if (event.key === "a") { 
+                    $("#a").css("background-color", "green");
+                }
+            }).keyup(function (event) {
+                if (event.key === "a") { 
+                    $("#a").css("background-color", "");
+                }
+            });
+
+            $(document).keydown(function (event) {
+                if (event.key === "s") { 
+                    $("#s").css("background-color", "green");
+                }
+            }).keyup(function (event) {
+                if (event.key === "s") { 
+                    $("#s").css("background-color", "");
+                }
+            });
+
+            $(document).keydown(function (event) {
+                if (event.key === "d") { 
+                    $("#d").css("background-color", "green");
+                }
+            }).keyup(function (event) {
+                if (event.key === "d") { 
+                    $("#d").css("background-color", "");
+                }
+            });
+
+
+
+            $(document).keydown(function (event) {
+                if (event.key === "i") { 
+                    $("#i").css("background-color", "yellow");
+                }
+            }).keyup(function (event) {
+                if (event.key === "i") { 
+                    $("#i").css("background-color", "");
+                }
+            });
+
+            $(document).keydown(function (event) {
+                if (event.key === "j") { 
+                    $("#j").css("background-color", "yellow");
+                }
+            }).keyup(function (event) {
+                if (event.key === "j") { 
+                    $("#j").css("background-color", "");
+                }
+            });
+
+            $(document).keydown(function (event) {
+                if (event.key === "k") { 
+                    $("#k").css("background-color", "yellow");
+                }
+            }).keyup(function (event) {
+                if (event.key === "k") { 
+                    $("#k").css("background-color", "");
+                }
+            });
+
+            $(document).keydown(function (event) {
+                if (event.key === "l") { 
+                    $("#l").css("background-color", "yellow");
+                }
+            }).keyup(function (event) {
+                if (event.key === "l") { 
+                    $("#l").css("background-color", "");
+                }
+            });
+
+        });
+
+    </script>
 </body>
+
 </html>

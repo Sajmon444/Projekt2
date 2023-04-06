@@ -7,19 +7,20 @@
     <title>menu</title>
     <style>
         #start {
-            background-color: lightblue;
+            background-color: #639cd9;
+            color: aliceblue;
             width: 400px;
             height: 100px;
 
             margin-left: auto;
             margin-right: auto;
-            margin-top: 130px;
+            margin-top: 60px;
 
 
         }
 
         #opcje {
-            background-color: lightgoldenrodyellow;
+            background-color: #393e6f;
             width: 400px;
             height: 100px;
 
@@ -36,10 +37,16 @@
             margin-left: auto;
             margin-right: auto;
 
+            border-radius: 20px;
+
+            text-align: center;
+
+
         }
 
         #exit {
-            background-color: gray;
+            background-color: #5454c5;
+            color: aliceblue;
             width: 400px;
             height: 100px;
 
@@ -50,13 +57,9 @@
 
         .przycisk {
             appearance: none;
-
             border: 2px solid #1A1A1A;
             border-radius: 15px;
-
             color: #FFFFFF;
-
-
             font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             font-size: 16px;
             font-weight: 600;
@@ -64,9 +67,30 @@
             margin: 0;
             min-height: 60px;
             min-width: 0;
-            
-            padding: 16px 24px;
+            padding: 10px 24px;
             text-align: center;
+            font-size: 45px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            transform: all 0.2 ease;
+
+        }
+
+        .przycisk:active{
+            transform: scale(0.96);
+        }
+
+        body {
+            background-color: #220e24;
+        }
+
+        #autor {
+            color: white;
+            float: left;
+            margin-top: 450px;
 
         }
     </style>
@@ -74,11 +98,11 @@
 </head>
 
 <body>
-    <div id="start" class="przycisk"></div>
-    <div id="opcje" class="przycisk"></div>
-    <div id="opcje_2" class="przycisk"></div>
-    <div id="exit" class="przycisk"></div>
-
+    <div id="start" class="przycisk">Start</div>
+    <div id="opcje" class="przycisk">Informacje</div>
+    <div id="opcje_2" >Dzień dobry! Gra polega na tym że mamy gracza (kolor zielony) i jego celem jest pokonanie wroga (kolor filoletowy). Gracz strzela żółtymi pociskami (klawisze ijkl w zaleznosci od kierunku jaki ma obrać pocisk) po trafieniu wroga przez pocisk dodawany jest punkt. Gracz przegrywa w tedy gdy wróg spotka sie z graczem lub pocisk wroga trafi gracza</div>
+    <div id="exit" class="przycisk">Exit</div>
+    <div id="autor">autor: Szymon Pawełczyk</div>
     <script>
 
         $(document).ready(function () {
@@ -100,18 +124,19 @@
             $(".przycisk").mouseenter(function () {
                 $(this).css({
                     "box-shadow": "rgba(0, 0, 0, 0.25) 0 8px 15px",
-                    
+
                 });
             }).mouseleave(function () {
                 $(this).css({
                     "box-shadow": "none",
-                    
+
                 });
             });
 
 
 
         }); 
+       
     </script>
 </body>
 
